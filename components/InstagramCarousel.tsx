@@ -44,8 +44,8 @@ export default function InstagramCarousel() {
           >
             {slides[currentIndex].type === 'cover' ? (
               <div className="flex flex-col items-center justify-center h-full p-6 text-center bg-[#050505]">
-                <h1 className="text-white text-3xl font-bold mb-2 tracking-tight">Modern Web Design Concept</h1>
-                <p className="text-[#3B82F6] font-mono text-xs uppercase tracking-widest mb-8">Premium UI/UX Showcase</p>
+                <h1 className="text-white text-3xl font-bold mb-2 tracking-tight">{slides[currentIndex].title}</h1>
+                <p className="text-[#3B82F6] font-mono text-xs uppercase tracking-widest mb-8">{slides[currentIndex].subtitle}</p>
                 
                 <div className="w-64 h-44 bg-[#1a1a1a] rounded-t-lg border-t border-x border-gray-700 shadow-2xl overflow-hidden relative mt-4">
                   <Image
@@ -121,13 +121,14 @@ export default function InstagramCarousel() {
                   src="/velosite-v-bg.png"
                   alt="Background Logo"
                   fill
-                  className="object-cover"
+                  className="object-cover scale-[1.5]"
                   referrerPolicy="no-referrer"
                   priority
                 />
+                <div className="absolute inset-0 bg-black/10" />
                 <div className="relative z-10">
-                  <h1 className="text-white text-3xl font-bold mb-2 drop-shadow-xl">{slides[currentIndex].title}</h1>
-                  <p className="text-white text-xl font-bold drop-shadow-lg">{slides[currentIndex].subtitle}</p>
+                  <h1 className="text-white text-3xl font-bold mb-2 drop-shadow-[0_4px_4px_rgba(0,0,0,1)]">{slides[currentIndex].title}</h1>
+                  <p className="text-white text-xl font-bold drop-shadow-[0_2px_2px_rgba(0,0,0,1)]">{slides[currentIndex].subtitle}</p>
                 </div>
               </div>
             ) : slides[currentIndex].type === 'results' ? (
@@ -153,9 +154,21 @@ export default function InstagramCarousel() {
           </motion.div>
         </AnimatePresence>
 
+        {/* Dots Indicator */}
+        <div className="absolute bottom-4 w-full flex justify-center gap-1.5 z-10">
+          {slides.map((_, i) => (
+            <div
+              key={i}
+              className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
+                i === currentIndex ? 'bg-[#3B82F6] w-3' : 'bg-white/20'
+              }`}
+            />
+          ))}
+        </div>
+
         {/* Mock Navigation */}
-        <button onClick={prevSlide} className="absolute left-2 top-1/2 text-white/50 hover:text-white p-2 z-10"><ChevronLeft /></button>
-        <button onClick={nextSlide} className="absolute right-2 top-1/2 text-white/50 hover:text-white p-2 z-10"><ChevronRight /></button>
+        <button onClick={prevSlide} className="absolute left-2 top-1/2 -translate-y-1/2 text-white/50 hover:text-white p-2 z-10"><ChevronLeft /></button>
+        <button onClick={nextSlide} className="absolute right-2 top-1/2 -translate-y-1/2 text-white/50 hover:text-white p-2 z-10"><ChevronRight /></button>
       </div>
     </div>
   );
