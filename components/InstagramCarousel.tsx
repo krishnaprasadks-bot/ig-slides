@@ -117,18 +117,21 @@ export default function InstagramCarousel() {
               </div>
             ) : slides[currentIndex].type === 'cta' ? (
               <div className="flex flex-col items-center justify-center h-full p-8 text-center bg-[#050505] relative overflow-hidden">
-                <Image
-                  src="/velosite-v-bg.png"
-                  alt="Background Logo"
-                  fill
-                  className="object-cover scale-[1.5]"
-                  referrerPolicy="no-referrer"
-                  priority
+                <div className="absolute inset-0 bg-gradient-to-tr from-blue-900/40 via-transparent to-purple-900/40" />
+                {/* CSS Background fails gracefully if image is 0-byte/missing */}
+                <div 
+                  className="absolute inset-0 bg-cover bg-center scale-[2.2] opacity-60 transition-opacity duration-1000"
+                  style={{ backgroundImage: `url(/velosite-v-bg.png)` }}
                 />
-                <div className="absolute inset-0 bg-black/10" />
-                <div className="relative z-10">
-                  <h1 className="text-white text-3xl font-bold mb-2 drop-shadow-[0_4px_4px_rgba(0,0,0,1)]">{slides[currentIndex].title}</h1>
-                  <p className="text-white text-xl font-bold drop-shadow-[0_2px_2px_rgba(0,0,0,1)]">{slides[currentIndex].subtitle}</p>
+                <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px]" />
+                <div className="relative z-10 flex flex-col items-center">
+                  <div className="w-12 h-1 bg-[#3B82F6] mb-8 rounded-full shadow-[0_0_15px_rgba(59,130,246,0.5)]" />
+                  <h1 className="text-white text-4xl font-black mb-3 tracking-tighter uppercase drop-shadow-[0_4px_24px_rgba(59,130,246,0.7)] leading-none">
+                    {slides[currentIndex].title}
+                  </h1>
+                  <p className="text-white text-2xl font-bold tracking-[0.25em] uppercase mb-10 drop-shadow-md">
+                    {slides[currentIndex].subtitle}
+                  </p>
                 </div>
               </div>
             ) : slides[currentIndex].type === 'results' ? (
@@ -137,10 +140,11 @@ export default function InstagramCarousel() {
                 <div className="w-[85%] aspect-video bg-[#111] rounded-lg border border-gray-800 shadow-inner relative overflow-hidden">
                   <Image
                     src="/velosite-contact.png"
-                    alt="Contact/Results"
+                    alt="Contact Results"
                     fill
                     className="object-contain"
                     referrerPolicy="no-referrer"
+                    priority
                   />
                 </div>
                 <p className="text-[#3B82F6] font-mono text-xs mt-4 border border-[#3B82F6]/30 px-3 py-1 rounded-full">{slides[currentIndex].tag}</p>
